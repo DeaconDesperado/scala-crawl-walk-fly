@@ -21,14 +21,14 @@ class Service ()(
   implicit val system: ActorSystem,
   implicit val materializer: ActorMaterializer,
   implicit val ec:ExecutionContext
-)extends Serialization with Routes {
+){
 
   val route =
     path("hello") {
       get {
         complete("<h1>Say hello to akka-http</h1>")
       }
-    } ~ loginRoute
+    }
 
   def run() {
     val bindingFuture = Http().bindAndHandle(route, "localhost", 8081)
