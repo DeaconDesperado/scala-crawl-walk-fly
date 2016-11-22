@@ -9,21 +9,26 @@ import scala.concurrent.ExecutionContext
 import scala.io.StdIn
 
 object Main extends App {
-    implicit val system = ActorSystem("my-system")
-    implicit val materializer = ActorMaterializer()
-    // needed for the future flatMap/onComplete in the end
-    implicit val executionContext = system.dispatcher
+  implicit val system = ActorSystem("my-system")
+  implicit val materializer = ActorMaterializer()
+  // needed for the future flatMap/onComplete in the end
+  implicit val executionContext = system.dispatcher
 
-    new Service().run()
+  new Service().run()
 }
 
-class Service ()(implicit val system: ActorSystem, val materializer: ActorMaterializer, val ec:ExecutionContext){
+class Service ()(
+  implicit val system: ActorSystem,
+  implicit val materializer: ActorMaterializer,
+  implicit val ec:ExecutionContext
+)extends Serialization with Routes {
+
   val route =
     path("hello") {
       get {
-        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+        complete("<h1>Say hello to akka-http</h1>")
       }
-    }
+    } ~ loginRoute
 
   def run() {
     val bindingFuture = Http().bindAndHandle(route, "localhost", 8081)

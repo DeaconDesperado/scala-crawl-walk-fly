@@ -1,8 +1,8 @@
 package com.spotify.crawl
 
-object Main extends App {
+case class Person(name:String, age:Int)
 
-  case class Person(name:String, age:Int)
+object Main extends App {
 
   val people = List(
     Person("Bob", 41),
