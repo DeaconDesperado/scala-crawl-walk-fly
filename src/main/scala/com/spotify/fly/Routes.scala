@@ -8,7 +8,6 @@ import com.spotify.crawl.User
 case class LoginRequest(username:String, password:String)
 
 trait Routes extends SprayJsonSupport {
-
   this: Service =>
 
   val dummyUser = User("davidfoobar", "foobar", 29)
