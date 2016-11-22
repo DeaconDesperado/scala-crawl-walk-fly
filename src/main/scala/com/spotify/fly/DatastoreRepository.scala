@@ -5,6 +5,13 @@ import com.google.cloud.datastore._
 import scala.concurrent.{ExecutionContext, Future}
 import collection.JavaConverters._
 
+trait DatastoreMapper[T] {
+  def kind:String
+  def keyProperty(model:T):String
+  def toDatastoreEntity(model:T, key:Key):Entity
+  def fromDatastoreEntity(entity:Entity):T
+}
+
 class DatastoreRepository[T : DatastoreMapper](implicit val ec:ExecutionContext) extends Repository[T]{
 
   //Obtain the mapper the context bound guarantees
@@ -59,11 +66,4 @@ class DatastoreRepository[T : DatastoreMapper](implicit val ec:ExecutionContext)
       .toSeq
       .map(mapper.fromDatastoreEntity)
   }
-}
-
-trait DatastoreMapper[T] {
-  def kind:String
-  def keyProperty(model:T):String
-  def toDatastoreEntity(model:T, key:Key):Entity
-  def fromDatastoreEntity(entity:Entity):T
 }
