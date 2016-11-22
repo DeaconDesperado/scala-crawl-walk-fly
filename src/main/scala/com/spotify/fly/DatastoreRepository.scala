@@ -6,8 +6,10 @@ import scala.concurrent.{ExecutionContext, Future}
 import collection.JavaConverters._
 
 class DatastoreRepository[T : DatastoreMapper](implicit val ec:ExecutionContext) extends Repository[T]{
+
   //Obtain the mapper the context bound guarantees
   val mapper = implicitly[DatastoreMapper[T]]
+
   //Connect to datastore
   val datastore:Datastore = DatastoreOptions.newBuilder()
     .setNamespace("scala-workshop")

@@ -1,30 +1,30 @@
 package com.spotify.crawl
 
-case class Person(name:String, age:Int)
+final case class User(username:String, password:String, age:Int)
 
 object Main extends App {
 
   val people = List(
-    Person("Bob", 41),
-    Person("Catherine", 23),
-    Person("Cindy", 52)
+    User("Bob", "test",41),
+    User("Catherine", "test",23),
+    User("Cindy", "test",52)
   )
 
-  val maybeCindy = people.find(_.name == "Cindy")
+  val maybeCindy = people.find(_.username == "Cindy")
 
   //maybeCindy is an option
   maybeCindy match {
     case Some(p) ⇒
-      println(s"${p.name} was found!\n")
+      println(s"${p.username} was found!\n")
     case None ⇒
       println("nobody's home!\n")
   }
 
-  people.filter(_.age < 50).map(_.name)
+  people.filter(_.age < 50).map(_.username)
 
-  //I want a list of names for people younger than 50 whose name starts with the letter C
+  //I want a list of usernames for people younger than 50 whose username starts with the letter C
   val cYoungPeople = people.collect {
-    case Person(name, age) if name.startsWith("C") && age < 50 => name
+    case User(username, pass, age) if username.startsWith("C") && age < 50 => username
   }
 
   cYoungPeople.foreach(println)

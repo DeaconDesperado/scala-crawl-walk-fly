@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
-import com.spotify.walk.models.User
+import com.spotify.crawl.User
 
 import scala.concurrent.ExecutionContext
 import scala.io.StdIn

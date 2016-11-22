@@ -2,7 +2,7 @@ package com.spotify.fly
 
 import com.google.cloud.datastore.{IncompleteKey, EntityValue, Key, Entity}
 import com.google.common.collect.ImmutableList
-import com.spotify.walk.models.User
+import com.spotify.crawl.User
 
 object UserMapper extends DatastoreMapper[User]{
 
@@ -14,11 +14,13 @@ object UserMapper extends DatastoreMapper[User]{
     Entity.newBuilder(key)
       .set("username", model.username)
       .set("password", model.password)
+      .set("age", model.age.toLong)
       .build()
   }
 
   override def fromDatastoreEntity(entity: Entity): User = User(
     entity.getString("username"),
-    entity.getString("password")
+    entity.getString("password"),
+    entity.getLong("age").toInt
   )
 }
