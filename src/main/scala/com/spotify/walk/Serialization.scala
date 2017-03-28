@@ -7,5 +7,5 @@ import spray.json.DefaultJsonProtocol._
 trait Serialization extends SprayJsonSupport {
 
   implicit val userFormat = jsonFormat3[String, Int, Boolean, User](User)
-
+  implicit val loginFormat = jsonFormat1[String, LoginRequest](LoginRequest)
 }
