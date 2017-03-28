@@ -6,6 +6,6 @@ import spray.json.DefaultJsonProtocol._
 
 trait Serialization extends SprayJsonSupport {
 
-  implicit val itemFormat = jsonFormat3(User)
+  implicit val userFormat = jsonFormat3[String, Int, Boolean, User](User)
 
 }

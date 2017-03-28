@@ -8,29 +8,29 @@ import akka.stream.ActorMaterializer
 import scala.concurrent.ExecutionContext
 import scala.io.StdIn
 
-object Main extends App {
+object Service extends App {
   implicit val system = ActorSystem("my-system")
   implicit val materializer = ActorMaterializer()
   // needed for the future flatMap/onComplete in the end
   implicit val executionContext = system.dispatcher
 
-  new Service().run()
+  new Service().run
 }
 
 class Service ()(
   implicit val system: ActorSystem,
   implicit val materializer: ActorMaterializer,
   implicit val ec:ExecutionContext
-){
+) extends Serialization with Routes {
 
   val route =
     path("hello") {
       get {
         complete("<h1>Say hello to akka-http</h1>")
       }
-    }
+    } ~ loginRoute
 
-  def run() {
+  def run {
     val bindingFuture = Http().bindAndHandle(route, "localhost", 8081)
 
     println(s"Server online at http://localhost:8081/\nPress RETURN to stop...")
