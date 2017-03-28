@@ -1,0 +1,9 @@
+{
+    "name":"bobblocker",
+    "password":"foobar",
+    "age":17,
+    "userType": {
+        "payment":"paypal",
+        "paypal_email": "bobblocker@att.net"
+    }
+}

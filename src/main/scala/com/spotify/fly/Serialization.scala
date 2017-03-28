@@ -9,6 +9,7 @@ import scala.collection.immutable.Map
 
 
 trait Serialization extends SprayJsonSupport {
+
   implicit object UserTypesFormat extends RootJsonFormat[UserTypes]{
     def write(ut:UserTypes) = ut match {
       case PremiumUser(Paypal(paypalEmail)) =>
